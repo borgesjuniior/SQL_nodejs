@@ -28,7 +28,7 @@ module.exports = {
         try {
 
             const { title, user_id } = req.body
-            await knex('users').insert({title, user_id});
+            await knex('projects').insert({title, user_id});
 
             //Retorna o status de criado com sucesso!
             return res.status(201).send()
