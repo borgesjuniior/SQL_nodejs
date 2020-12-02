@@ -10,8 +10,8 @@ routes.put('/users/:id', userController.update);
 routes.delete('/users/:id', userController.delete);
 
 /*Rota dos projetos*/
-
 routes.get('/projects', ProjectController.index);
+routes.post('/projects', ProjectController.insert);
 
 
 

@@ -9,7 +9,10 @@ module.exports = {
             const query = knex('projects'); //recebe os projetos.
 
             if (user_id) {  //Verfica se o user_id existe e faz a connsulta.
-                query.where({user_id})
+                query
+                .where({user_id})
+                .join('users',  'users.id', '=', 'projects.user_id') 
+                .select('projects. *', 'users.username')
             }
 
             const results = await query; //recebe a consulta e coloca na variável.
@@ -19,6 +22,20 @@ module.exports = {
         } catch (error) {
             next(error);   
         }
+    },
+
+    async insert(req, res, next) {
+        try {
+
+            const { title, user_id } = req.body
+            await knex('users').insert({title, user_id});
+
+            //Retorna o status de criado com sucesso!
+            return res.status(201).send()
+
+        } catch (error) {
+            next(error)
+        }
     }
-}
+};
 
